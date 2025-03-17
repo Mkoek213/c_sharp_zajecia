@@ -1,0 +1,15 @@
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/zajecia_3.csproj.AssemblyReference.cache
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/zajecia_3.GeneratedMSBuildEditorConfig.editorconfig
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/zajecia_3.AssemblyInfoInputs.cache
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/zajecia_3.AssemblyInfo.cs
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/zajecia_3.csproj.CoreCompileInputs.cache
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/bin/Debug/net7.0/zajecia_3
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/bin/Debug/net7.0/zajecia_3.deps.json
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/bin/Debug/net7.0/zajecia_3.runtimeconfig.json
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/bin/Debug/net7.0/zajecia_3.dll
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/bin/Debug/net7.0/zajecia_3.pdb
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/zajecia_3.dll
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/refint/zajecia_3.dll
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/zajecia_3.pdb
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/zajecia_3.genruntimeconfig.cache
+/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_3/obj/Debug/net7.0/ref/zajecia_3.dll
