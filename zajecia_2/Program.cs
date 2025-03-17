@@ -82,101 +82,150 @@
 // }
 
 // ZAD 5
-class Zad
-{
-    static void Main(string[] args)
-    {
+// class Zad
+// {
+//     static void Main(string[] args)
+//     {
+//         string file_name = args[0];
+//         int n = int.Parse(args[1]);
+//         int range_start = int.Parse(args[2]);
+//         int range_end = int.Parse(args[3]);
+//         int seed = int.Parse(args[4]);
+//         string liczby = args[5];
+
+//         bool rzeczywiste = false;
+//         bool calkowite = false;
+
+//         int chars = 0;
+
+//         // Declare the variables outside the if-blocks for proper scoping
+//         double min_num = double.MaxValue;
+//         double max_num = double.MinValue;
+//         double avg = 0;
+//         double sum = 0;
+
+//         int int_min_num = int.MaxValue;
+//         int int_max_num = int.MinValue;
+//         int int_avg = 0;
+//         int int_sum = 0;
+
+//         if (liczby == "rzeczywiste")
+//         {
+//             rzeczywiste = true;
+//         }
+//         else
+//         {
+//             calkowite = true;
+//         }
+
+//         StreamWriter sw = new StreamWriter(file_name);
+//         Random rand = new Random(seed);
+
+//         for (int i = 0; i < n; i++)
+//         {
+
+//             if (rzeczywiste)
+//             {
+//                 double num = rand.NextDouble() * (range_end - range_start) + range_start;
+//                 sw.WriteLine(num);
+//                 chars += num.ToString().Length;
+//                 if (num < min_num)
+//                 {
+//                     min_num = num;
+//                 }
+//                 if (num > max_num)
+//                 {
+//                     max_num = num;
+//                 }
+//                 sum += num;
+//             }
+
+//             if (calkowite)
+//             {
+//                 int num = rand.Next(range_start, range_end);
+//                 sw.WriteLine(num);
+//                 chars += num.ToString().Length;
+//                 if (num < int_min_num)
+//                 {
+//                     int_min_num = num;
+//                 }
+//                 if (num > int_max_num)
+//                 {
+//                     int_max_num = num;
+//                 }
+//                 int_sum += num;
+//             }
+//         }
+
+//         sw.Close();
+
+//         // Calculate averages based on type
+//         if (rzeczywiste)
+//         {
+//             avg = sum / n;
+//             Console.WriteLine($"Liczba linii: {n}");
+//             Console.WriteLine($"Liczba znaków: {chars}");
+//             Console.WriteLine($"Max: {max_num}");
+//             Console.WriteLine($"Min: {min_num}");
+//             Console.WriteLine($"Srednia: {avg}");
+//         }
+//         else if (calkowite)
+//         {
+//             int_avg = int_sum / n;
+//             Console.WriteLine($"Liczba linii: {n}");
+//             Console.WriteLine($"Liczba znaków: {chars}");
+//             Console.WriteLine($"Max: {int_max_num}");
+//             Console.WriteLine($"Min: {int_min_num}");
+//             Console.WriteLine($"Srednia: {int_avg}");
+//         }
+//     }
+// }
+
+// ZAD 6
+class Zad{
+    static void Main(string[] args){
         string file_name = args[0];
         int n = int.Parse(args[1]);
         int range_start = int.Parse(args[2]);
         int range_end = int.Parse(args[3]);
         int seed = int.Parse(args[4]);
         string liczby = args[5];
-
         bool rzeczywiste = false;
         bool calkowite = false;
-
-        int chars = 0;
-
-        // Declare the variables outside the if-blocks for proper scoping
-        double min_num = double.MaxValue;
-        double max_num = double.MinValue;
-        double avg = 0;
-        double sum = 0;
-
-        int int_min_num = int.MaxValue;
-        int int_max_num = int.MinValue;
-        int int_avg = 0;
-        int int_sum = 0;
-
-        if (liczby == "rzeczywiste")
-        {
+        if (liczby == "rzeczywiste"){
             rzeczywiste = true;
-        }
-        else
-        {
+        }else{
             calkowite = true;
         }
-
         StreamWriter sw = new StreamWriter(file_name);
         Random rand = new Random(seed);
-
-        for (int i = 0; i < n; i++)
-        {
-
-            if (rzeczywiste)
-            {
+        for (int i = 0; i < n; i++){
+            if (rzeczywiste){
                 double num = rand.NextDouble() * (range_end - range_start) + range_start;
                 sw.WriteLine(num);
-                chars += num.ToString().Length;
-                if (num < min_num)
-                {
-                    min_num = num;
-                }
-                if (num > max_num)
-                {
-                    max_num = num;
-                }
-                sum += num;
             }
-
-            if (calkowite)
-            {
+            if (calkowite){
                 int num = rand.Next(range_start, range_end);
                 sw.WriteLine(num);
-                chars += num.ToString().Length;
-                if (num < int_min_num)
-                {
-                    int_min_num = num;
-                }
-                if (num > int_max_num)
-                {
-                    int_max_num = num;
-                }
-                int_sum += num;
             }
         }
-
         sw.Close();
-
-        // Calculate averages based on type
-        if (rzeczywiste)
-        {
-            avg = sum / n;
-            Console.WriteLine($"Liczba linii: {n}");
-            Console.WriteLine($"Liczba znaków: {chars}");
-            Console.WriteLine($"Max: {max_num}");
-            Console.WriteLine($"Min: {min_num}");
-            Console.WriteLine($"Srednia: {avg}");
+    }
+    StreamReader sr = new StreamReader(file_name);
+    int pivot = sr.ReadLine();
+    while (!sr.EndOfStream){
+        string line = sr.ReadLine();
+        if (rzeczywiste){
+            double num = double.Parse(line);
+            if (num < pivot){
+                
+            }
         }
-        else if (calkowite)
-        {
-            int_avg = int_sum / n;
-            Console.WriteLine($"Liczba linii: {n}");
-            Console.WriteLine($"Liczba znaków: {chars}");
-            Console.WriteLine($"Max: {int_max_num}");
-            Console.WriteLine($"Min: {int_min_num}");
-            Console.WriteLine($"Srednia: {int_avg}");
+        if (calkowite){
+            int num = int.Parse(line);
+            if (num < pivot){
+                
+            }
         }
     }
 }
