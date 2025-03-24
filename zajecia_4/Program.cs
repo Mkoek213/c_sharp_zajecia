@@ -93,8 +93,7 @@ class Program
         var data = File.ReadAllLines(filePath);
         foreach (var line in data)
         {
-                var tweet = JsonConvert.DeserializeObject<Tweet>(line);
-            tweet.CreatedAt = DateTime.ParseExact(tweet.CreatedAt.ToString(), "MMMM dd, yyyy 'at' hh:mmtt", CultureInfo.InvariantCulture);
+            var tweet = JsonConvert.DeserializeObject<Tweet>(line);
             tweets.Add(tweet);
         }
         Console.WriteLine($"Total Tweets: {tweets.Count}");
