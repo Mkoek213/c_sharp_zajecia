@@ -198,6 +198,28 @@ class Program
         {
             Console.WriteLine($"Pracownik: {detail.EmployeeName}, Region: {detail.RegionName}, Terytorium: {detail.TerritoryName}");
         }
+
+        // [1 punkt] wypisz nazwy regionów oraz nazwiska pracowników, którzy pracują w tych regionach, pracownicy mają być zagregowani po regionach, rezultatem ma być lista regionów z podlistą pracowników (odpowiednik groupjoin).
+        var regionEmployeeGroups = from reg in regions
+                                    join terr in territories on reg.RegionID equals terr.RegionID
+                                    join empTerr in employeeTerritories on terr.TerritoryID equals empTerr.TerritoryID
+                                    join emp in employees on empTerr.EmployeeID equals emp.EmployeeID
+                                    group emp by reg.RegionDescription into g
+                                    select new
+                                    {
+                                        RegionName = g.Key,
+                                        Employees = g.Select(e => e.LastName).Distinct()
+                                    };
+
+        Console.WriteLine("\nNazwy regionów oraz pracownicy w tych regionach:");
+        foreach (var group in regionEmployeeGroups)
+        {
+            Console.WriteLine($"Region: {group.RegionName}");
+            foreach (var emp in group.Employees)
+            {
+                Console.WriteLine($" - Pracownik: {emp}");
+            }
+        }
     }
 }
 
