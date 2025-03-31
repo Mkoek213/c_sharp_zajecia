@@ -1,10 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "6M128C3B52WiMiyFddmhQ6PdRY79Gjp39Ew5SZ44rPkwH00qlcBl5zmD4+1R/o3xVYLn9jMUF77tCHvKySciBQ==",
+  "dgSpecHash": "KaxTt+eI0ofOIX4JWG3xf5DEhGDaC7c1K3DWdE+4XEVZWXhZl5B6aJ5rwpWJvkXpO25wrr8LMloFFb6+EW0d+Q==",
   "success": true,
-  "projectFilePath": "/Users/mikolaj/Desktop/work/c_sharp_zajecia/zajecia_4/zajecia_4.csproj",
+  "projectFilePath": "/home/mikolaj/work/c_sharp_zajecia/zajecia_4/zajecia_4.csproj",
   "expectedPackageFiles": [
-    "/Users/mikolaj/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
+    "/home/mikolaj/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512",
+    "/home/mikolaj/.nuget/packages/microsoft.netcore.app.ref/7.0.18/microsoft.netcore.app.ref.7.0.18.nupkg.sha512",
+    "/home/mikolaj/.nuget/packages/microsoft.aspnetcore.app.ref/7.0.18/microsoft.aspnetcore.app.ref.7.0.18.nupkg.sha512",
+    "/home/mikolaj/.nuget/packages/microsoft.netcore.app.host.linux-x64/7.0.18/microsoft.netcore.app.host.linux-x64.7.0.18.nupkg.sha512"
   ],
   "logs": []
 }
