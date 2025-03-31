@@ -220,6 +220,23 @@ class Program
                 Console.WriteLine($" - Pracownik: {emp}");
             }
         }
+
+        // [1 punkt] wypisz nazwy regionów oraz liczbę pracowników w tych regionach.
+        var regionEmployeeCount = from reg in regions
+                                   join terr in territories on reg.RegionID equals terr.RegionID
+                                   join empTerr in employeeTerritories on terr.TerritoryID equals empTerr.TerritoryID
+                                   join emp in employees on empTerr.EmployeeID equals emp.EmployeeID
+                                   group emp by reg.RegionDescription into g
+                                   select new
+                                   {
+                                       RegionName = g.Key,
+                                       EmployeeCount = g.Select(emp => emp.EmployeeID).Distinct().Count()
+                                   };
+        Console.WriteLine("\nNazwy regionów oraz liczba pracowników w tych regionach:");
+        foreach (var group in regionEmployeeCount)
+        {
+            Console.WriteLine($"Region: {group.RegionName}, Liczba pracowników: {group.EmployeeCount}");
+        }
     }
 }
 
