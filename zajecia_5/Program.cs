@@ -174,11 +174,29 @@ class Program
         wczytywacz<Employee> employeeWczytywacz = new wczytywacz<Employee>();
         List<Employee> employees = employeeWczytywacz.wczytajListe("employees.csv", x => new Employee(x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9], x[10], x[11], x[12], x[13], x[14], x[15], x[16], x[17]));
 
+        // [1 punkt] wybierz nazwiska wszystkich pracowników.
         var employeeLastNames = employees.Select(e => e.LastName).Distinct();
         Console.WriteLine("Nazwiska wszystkich pracowników:");
         foreach (var lastName in employeeLastNames)
         {
             Console.WriteLine(lastName);
+        }
+
+        // [1 punkt] wypisz nazwiska pracowników oraz dla każdego z nich nazwę regionu i terytorium gdzie pracuje. Rezultatem kwerendy LINQ będzie "płaska" lista, więc nazwiska mogą się powtarzać (ale każdy rekord będzie unikalny).
+        var employeeTerritoryDetails = from emp in employees
+                                        join empTerr in employeeTerritories on emp.EmployeeID equals empTerr.EmployeeID
+                                        join terr in territories on empTerr.TerritoryID equals terr.TerritoryID
+                                        join reg in regions on terr.RegionID equals reg.RegionID
+                                        select new
+                                        {
+                                            EmployeeName = emp.LastName,
+                                            RegionName = reg.RegionDescription,
+                                            TerritoryName = terr.TerritoryDescription
+                                        };
+        Console.WriteLine("\nNazwiska pracowników oraz regiony i terytoria:");
+        foreach (var detail in employeeTerritoryDetails)
+        {
+            Console.WriteLine($"Pracownik: {detail.EmployeeName}, Region: {detail.RegionName}, Terytorium: {detail.TerritoryName}");
         }
     }
 }
