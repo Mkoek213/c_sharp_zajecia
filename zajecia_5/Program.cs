@@ -155,6 +155,59 @@ class Employee
     }
 }
 
+class Order
+{
+    public string OrderID { get; set; }
+    public string CustomerID { get; set; }
+    public string EmployeeID { get; set; }
+    public DateTime OrderDate { get; set; }
+    public string RequiredDate { get; set; }
+    public string ShippedDate { get; set; }
+    public string ShipVia { get; set; }
+    public decimal Freight { get; set; }
+    public string ShipName { get; set; }
+    public string ShipAddress { get; set; }
+    public string ShipCity { get; set; }
+    public string ShipRegion { get; set; }
+    public string ShipPostalCode { get; set; }
+    public string ShipCountry { get; set; }
+
+    public Order(string orderId, string customerId, string employeeId, string orderDate, string requiredDate, string shippedDate, string shipVia, string freight, string shipName, string shipAddress, string shipCity, string shipRegion, string shipPostalCode, string shipCountry)
+    {
+        OrderID = orderId;
+        CustomerID = customerId;
+        EmployeeID = employeeId;
+        OrderDate = DateTime.ParseExact(orderDate, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        RequiredDate = requiredDate;
+        ShippedDate = shippedDate;
+        ShipVia = shipVia;
+        Freight = decimal.Parse(freight);
+        ShipName = shipName;
+        ShipAddress = shipAddress;
+        ShipCity = shipCity;
+        ShipRegion = shipRegion;
+        ShipPostalCode = shipPostalCode;
+        ShipCountry = shipCountry;
+    }
+}
+
+class OrderDetails
+{
+    public string OrderID { get; set; }
+    public string ProductID { get; set; }
+    public string UnitPrice { get; set; }
+    public string Quantity { get; set; }
+    public string Discount { get; set; }
+
+    public OrderDetails(string orderId, string productId, string unitPrice, string quantity, string discount)
+    {
+        OrderID = orderId;
+        ProductID = productId;
+        UnitPrice = unitPrice;
+        Quantity = quantity;
+        Discount = discount;
+    }
+}
 
 
 
@@ -236,6 +289,28 @@ class Program
         foreach (var group in regionEmployeeCount)
         {
             Console.WriteLine($"Region: {group.RegionName}, Liczba pracowników: {group.EmployeeCount}");
+        }
+
+        // [3 punkty] wczytaj do odpowiednich struktur dane z plików orders.csv oraz orders_details.csv. Następnie dla każdego pracownika wypisz liczbę dokonanych przez niego zamówień, średnią wartość zamówienia oraz maksymalną wartość zamówienia.
+        wczytywacz<Order> orderWczytywacz = new wczytywacz<Order>();
+        wczytywacz<OrderDetails> orderDetailsWczytywacz = new wczytywacz<OrderDetails>();
+        List<Order> orders = orderWczytywacz.wczytajListe("orders.csv", x => new Order(x[0], x[1], x[2], x[3], x[4], x[5], x[6], x[7], x[8], x[9], x[10], x[11], x[12], x[13]));
+        List<OrderDetails> orderDetails = orderDetailsWczytywacz.wczytajListe("orders_details.csv", x => new OrderDetails(x[0], x[1], x[2], x[3], x[4]));
+        var employeeOrderStats = from emp in employees
+                                  join ord in orders on emp.EmployeeID equals ord.EmployeeID into empOrders
+                                  from ord in empOrders.DefaultIfEmpty()
+                                  group ord by emp.LastName into g
+                                  select new
+                                  {
+                                      EmployeeName = g.Key,
+                                      OrderCount = g.Count(o => o != null),
+                                      AverageOrderValue = g.Where(o => o != null).Average(o => o.Freight),
+                                      MaxOrderValue = g.Where(o => o != null).Max(o => o.Freight)
+                                  };
+        Console.WriteLine("\nStatystyki zamówień pracowników:");
+        foreach (var stat in employeeOrderStats)
+        {
+            Console.WriteLine($"Pracownik: {stat.EmployeeName}, Liczba zamówień: {stat.OrderCount}, Średnia wartość zamówienia: {stat.AverageOrderValue:C}, Maksymalna wartość zamówienia: {stat.MaxOrderValue:C}");
         }
     }
 }
