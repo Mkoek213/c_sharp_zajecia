@@ -1,0 +1,15 @@
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/bin/Debug/net8.0/zajecia_6
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/bin/Debug/net8.0/zajecia_6.deps.json
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/bin/Debug/net8.0/zajecia_6.runtimeconfig.json
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/bin/Debug/net8.0/zajecia_6.dll
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/bin/Debug/net8.0/zajecia_6.pdb
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/zajecia_6.GeneratedMSBuildEditorConfig.editorconfig
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/zajecia_6.AssemblyInfoInputs.cache
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/zajecia_6.AssemblyInfo.cs
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/zajecia_6.csproj.CoreCompileInputs.cache
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/zajecia_6.sourcelink.json
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/zajecia_6.dll
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/refint/zajecia_6.dll
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/zajecia_6.pdb
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/zajecia_6.genruntimeconfig.cache
+/home/mikolaj/work/c_sharp_zajecia/zajecia_6/obj/Debug/net8.0/ref/zajecia_6.dll
