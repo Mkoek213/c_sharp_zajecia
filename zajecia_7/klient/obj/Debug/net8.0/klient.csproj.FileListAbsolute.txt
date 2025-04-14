@@ -1,0 +1,15 @@
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/bin/Debug/net8.0/klient
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/bin/Debug/net8.0/klient.deps.json
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/bin/Debug/net8.0/klient.runtimeconfig.json
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/bin/Debug/net8.0/klient.dll
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/bin/Debug/net8.0/klient.pdb
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/klient.GeneratedMSBuildEditorConfig.editorconfig
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/klient.AssemblyInfoInputs.cache
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/klient.AssemblyInfo.cs
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/klient.csproj.CoreCompileInputs.cache
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/klient.sourcelink.json
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/klient.dll
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/refint/klient.dll
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/klient.pdb
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/klient.genruntimeconfig.cache
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/klient/obj/Debug/net8.0/ref/klient.dll

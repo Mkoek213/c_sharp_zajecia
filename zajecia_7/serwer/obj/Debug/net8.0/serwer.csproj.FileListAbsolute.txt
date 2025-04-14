@@ -1,0 +1,15 @@
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/bin/Debug/net8.0/serwer
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/bin/Debug/net8.0/serwer.deps.json
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/bin/Debug/net8.0/serwer.runtimeconfig.json
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/bin/Debug/net8.0/serwer.dll
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/bin/Debug/net8.0/serwer.pdb
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/serwer.GeneratedMSBuildEditorConfig.editorconfig
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/serwer.AssemblyInfoInputs.cache
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/serwer.AssemblyInfo.cs
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/serwer.csproj.CoreCompileInputs.cache
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/serwer.sourcelink.json
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/serwer.dll
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/refint/serwer.dll
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/serwer.pdb
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/serwer.genruntimeconfig.cache
+/home/mikolaj/work/c_sharp_zajecia/zajecia_7/serwer/obj/Debug/net8.0/ref/serwer.dll

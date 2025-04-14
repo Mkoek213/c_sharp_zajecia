@@ -1,91 +1,91 @@
 ﻿// //Zad 1
-// using System;
-// using System.Collections.Generic;
-// using System.Threading;
+using System;
+using System.Collections.Generic;
+using System.Threading;
 
-// class Data
-// {
-//     public int ProducerId { get; set; }
-// }
+class Data
+{
+    public int ProducerId { get; set; }
+}
 
-// class ProducerConsumer
-// {
-//     private static Queue<Data> queue = new Queue<Data>();
-//     private static object lockObj = new object();
-//     private static bool running = true;
+class ProducerConsumer
+{
+    private static Queue<Data> queue = new Queue<Data>();
+    private static object lockObj = new object();
+    private static bool running = true;
 
-//     public static void Main()
-//     {
-//         int producerCount = 3;
-//         int consumerCount = 2;
+    public static void Main()
+    {
+        int producerCount = 3;
+        int consumerCount = 2;
 
-//         List<Thread> threads = new List<Thread>();
-//         Random rand = new Random();
+        List<Thread> threads = new List<Thread>();
+        Random rand = new Random();
 
-//         for (int i = 0; i < producerCount; i++)
-//         {
-//             int id = i;
-//             int delay = rand.Next(500, 1500);
-//             threads.Add(new Thread(() => Producer(id, delay)));
-//         }
+        for (int i = 0; i < producerCount; i++)
+        {
+            int id = i;
+            int delay = rand.Next(500, 1500);
+            threads.Add(new Thread(() => Producer(id, delay)));
+        }
 
-//         for (int i = 0; i < consumerCount; i++)
-//         {
-//             int id = i;
-//             int delay = rand.Next(700, 2000);
-//             threads.Add(new Thread(() => Consumer(id, delay, producerCount)));
-//         }
+        for (int i = 0; i < consumerCount; i++)
+        {
+            int id = i;
+            int delay = rand.Next(700, 2000);
+            threads.Add(new Thread(() => Consumer(id, delay, producerCount)));
+        }
 
-//         foreach (var thread in threads)
-//             thread.Start();
+        foreach (var thread in threads)
+            thread.Start();
 
-//         Console.WriteLine("Press 'q' to quit.");
-//         while (Console.ReadKey(true).KeyChar != 'q') ;
+        Console.WriteLine("Press 'q' to quit.");
+        while (Console.ReadKey(true).KeyChar != 'q') ;
 
-//         running = false;
+        running = false;
 
-//         foreach (var thread in threads)
-//             thread.Join();
+        foreach (var thread in threads)
+            thread.Join();
 
-//         Console.WriteLine("Program zakończony.");
-//     }
+        Console.WriteLine("Program zakończony.");
+    }
 
-//     static void Producer(int id, int delay)
-//     {
-//         Random rand = new Random();
-//         while (running)
-//         {
-//             Thread.Sleep(delay);
-//             lock (lockObj)
-//             {
-//                 queue.Enqueue(new Data { ProducerId = id });
-//                 Console.WriteLine($"Producent {id} dodał dane.");
-//             }
-//         }
-//     }
+    static void Producer(int id, int delay)
+    {
+        Random rand = new Random();
+        while (running)
+        {
+            Thread.Sleep(delay);
+            lock (lockObj)
+            {
+                queue.Enqueue(new Data { ProducerId = id });
+                Console.WriteLine($"Producent {id} dodał dane.");
+            }
+        }
+    }
 
-//     static void Consumer(int id, int delay, int producerCount)
-//     {
-//         int[] stats = new int[producerCount];
-//         while (running)
-//         {
-//             Thread.Sleep(delay);
-//             lock (lockObj)
-//             {
-//                 if (queue.Count > 0)
-//                 {
-//                     var data = queue.Dequeue();
-//                     stats[data.ProducerId]++;
-//                     Console.WriteLine($"Konsument {id} odebrał dane od Producenta {data.ProducerId}.");
-//                 }
-//             }
-//         }
+    static void Consumer(int id, int delay, int producerCount)
+    {
+        int[] stats = new int[producerCount];
+        while (running)
+        {
+            Thread.Sleep(delay);
+            lock (lockObj)
+            {
+                if (queue.Count > 0)
+                {
+                    var data = queue.Dequeue();
+                    stats[data.ProducerId]++;
+                    Console.WriteLine($"Konsument {id} odebrał dane od Producenta {data.ProducerId}.");
+                }
+            }
+        }
 
-//         Console.WriteLine($"Konsument {id} zakończył. Statystyki:");
-//         for (int i = 0; i < producerCount; i++)
-//             Console.WriteLine($"  Producent {i} - {stats[i]}");
-//     }
-// }
+        Console.WriteLine($"Konsument {id} zakończył. Statystyki:");
+        for (int i = 0; i < producerCount; i++)
+            Console.WriteLine($"  Producent {i} - {stats[i]}");
+    }
+}
 
 
 
@@ -190,56 +190,56 @@
 // }
 
 
-// Zad 4
-using System;
-using System.Collections.Generic;
-using System.Threading;
+// // Zad 4
+// using System;
+// using System.Collections.Generic;
+// using System.Threading;
 
-class ThreadStartSync
-{
-    static int startedCount = 0;
-    static ManualResetEvent allStartedEvent = new ManualResetEvent(false);
-    static bool shouldStop = false;
+// class ThreadStartSync
+// {
+//     static int startedCount = 0;
+//     static ManualResetEvent allStartedEvent = new ManualResetEvent(false);
+//     static bool shouldStop = false;
 
-    public static void Main()
-    {
-        int threadCount = 5;
-        List<Thread> threads = new List<Thread>();
-        object lockObj = new object();
+//     public static void Main()
+//     {
+//         int threadCount = 5;
+//         List<Thread> threads = new List<Thread>();
+//         object lockObj = new object();
 
-        for (int i = 0; i < threadCount; i++)
-        {
-            int id = i;
-            threads.Add(new Thread(() =>
-            {
-                Console.WriteLine($"Wątek {id} zaczyna.");
-                lock (lockObj)
-                {
-                    startedCount++;
-                    if (startedCount == threadCount)
-                        allStartedEvent.Set();
-                }
+//         for (int i = 0; i < threadCount; i++)
+//         {
+//             int id = i;
+//             threads.Add(new Thread(() =>
+//             {
+//                 Console.WriteLine($"Wątek {id} zaczyna.");
+//                 lock (lockObj)
+//                 {
+//                     startedCount++;
+//                     if (startedCount == threadCount)
+//                         allStartedEvent.Set();
+//                 }
 
-                while (!shouldStop)
-                    Thread.Sleep(100);
+//                 while (!shouldStop)
+//                     Thread.Sleep(100);
                 
-                Console.WriteLine($"Wątek {id} zakończył działanie.");
-            }));
-        }
+//                 Console.WriteLine($"Wątek {id} zakończył działanie.");
+//             }));
+//         }
 
-        foreach (var t in threads)
-            t.Start();
+//         foreach (var t in threads)
+//             t.Start();
 
-        allStartedEvent.WaitOne();
-        Console.WriteLine("Wszystkie wątki rozpoczęły działanie.");
+//         allStartedEvent.WaitOne();
+//         Console.WriteLine("Wszystkie wątki rozpoczęły działanie.");
 
-        shouldStop = true;
+//         shouldStop = true;
 
-        foreach (var t in threads)
-            t.Join();
+//         foreach (var t in threads)
+//             t.Join();
 
-        Console.WriteLine("Wszystkie wątki zakończone.");
-    }
-}
+//         Console.WriteLine("Wszystkie wątki zakończone.");
+//     }
+// }
 
 
