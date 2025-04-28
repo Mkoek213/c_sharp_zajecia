@@ -181,105 +181,192 @@
 
 
 //Exc 3
+// using System;
+// using System.IO;
+// using System.Security.Cryptography;
+// using System.Text;
+// using System.Xml.Serialization;
+
+// class Program
+// {
+//     static void Main(string[] args)
+//     {
+//         if (args.Length != 2)
+//         {
+//             Console.WriteLine("Usage: Program <inputFile> <signatureFile>");
+//             return;
+//         }
+
+//         string inputFile = args[0];
+//         string signatureFile = args[1];
+
+//         if (!File.Exists(inputFile))
+//         {
+//             Console.WriteLine($"Input file {inputFile} does not exist.");
+//             return;
+//         }
+
+//         if (!File.Exists("privateKey.xml") || !File.Exists("publicKey.xml"))
+//         {
+//             Console.WriteLine("Key files (privateKey.xml and publicKey.xml) are missing.");
+//             return;
+//         }
+
+//         if (!File.Exists(signatureFile))
+//         {
+//             // Signature file doesn't exist, create it
+//             byte[] data = File.ReadAllBytes(inputFile);
+//             byte[] signature = SignData(data);
+
+//             File.WriteAllBytes(signatureFile, signature);
+//             Console.WriteLine($"Signature created and saved to {signatureFile}.");
+//         }
+//         else
+//         {
+//             // Signature file exists, verify
+//             byte[] data = File.ReadAllBytes(inputFile);
+//             byte[] signature = File.ReadAllBytes(signatureFile);
+
+//             bool valid = VerifyData(data, signature);
+
+//             if (valid)
+//                 Console.WriteLine("Signature is valid.");
+//             else
+//                 Console.WriteLine("Signature is INVALID.");
+//         }
+//     }
+
+//     static byte[] SignData(byte[] data)
+//     {
+//         using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+//         {
+//             string privateKeyXml = File.ReadAllText("privateKey.xml");
+//             rsa.FromXmlString(privateKeyXml);
+
+//             // Use SHA256 as hash algorithm
+//             return rsa.SignData(data, CryptoConfig.MapNameToOID("SHA256"));
+//         }
+//     }
+
+//     static bool VerifyData(byte[] data, byte[] signature)
+//     {
+//         using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+//         {
+//             string publicKeyXml = File.ReadAllText("publicKey.xml");
+//             rsa.FromXmlString(publicKeyXml);
+
+//             return rsa.VerifyData(data, CryptoConfig.MapNameToOID("SHA256"), signature);
+//         }
+//     }
+// }
+
+// public static class RSAExtensions
+// {
+//     public static void FromXmlString(this RSACryptoServiceProvider rsa, string xmlString)
+//     {
+//         var serializer = new XmlSerializer(typeof(RSAParameters));
+//         using (var reader = new StringReader(xmlString))
+//         {
+//             RSAParameters parameters = (RSAParameters)serializer.Deserialize(reader);
+//             rsa.ImportParameters(parameters);
+//         }
+//     }
+
+//     public static string ToXmlString(this RSACryptoServiceProvider rsa, bool includePrivateParameters)
+//     {
+//         var parameters = rsa.ExportParameters(includePrivateParameters);
+//         var serializer = new XmlSerializer(typeof(RSAParameters));
+//         using (var writer = new StringWriter())
+//         {
+//             serializer.Serialize(writer, parameters);
+//             return writer.ToString();
+//         }
+//     }
+// }
+
+// Exc 4
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using System.Xml.Serialization;
 
 class Program
 {
+    // Hardcoded salt (it could be random, but here fixed is fine for the exercise)
+    private static readonly byte[] salt = Encoding.UTF8.GetBytes("SomeFixedSaltValue");
+
     static void Main(string[] args)
     {
-        if (args.Length != 2)
+        if (args.Length != 4)
         {
-            Console.WriteLine("Usage: Program <inputFile> <signatureFile>");
+            Console.WriteLine("Usage: Program <inputFile> <outputFile> <password> <operationType>");
+            Console.WriteLine("operationType: 0 = encrypt, 1 = decrypt");
             return;
         }
 
         string inputFile = args[0];
-        string signatureFile = args[1];
+        string outputFile = args[1];
+        string password = args[2];
+        int operationType = int.Parse(args[3]);
 
-        if (!File.Exists(inputFile))
+        if (operationType == 0)
         {
-            Console.WriteLine($"Input file {inputFile} does not exist.");
-            return;
+            EncryptFile(inputFile, outputFile, password);
+            Console.WriteLine($"File {inputFile} encrypted to {outputFile}.");
         }
-
-        if (!File.Exists("privateKey.xml") || !File.Exists("publicKey.xml"))
+        else if (operationType == 1)
         {
-            Console.WriteLine("Key files (privateKey.xml and publicKey.xml) are missing.");
-            return;
-        }
-
-        if (!File.Exists(signatureFile))
-        {
-            // Signature file doesn't exist, create it
-            byte[] data = File.ReadAllBytes(inputFile);
-            byte[] signature = SignData(data);
-
-            File.WriteAllBytes(signatureFile, signature);
-            Console.WriteLine($"Signature created and saved to {signatureFile}.");
+            DecryptFile(inputFile, outputFile, password);
+            Console.WriteLine($"File {inputFile} decrypted to {outputFile}.");
         }
         else
         {
-            // Signature file exists, verify
-            byte[] data = File.ReadAllBytes(inputFile);
-            byte[] signature = File.ReadAllBytes(signatureFile);
-
-            bool valid = VerifyData(data, signature);
-
-            if (valid)
-                Console.WriteLine("Signature is valid.");
-            else
-                Console.WriteLine("Signature is INVALID.");
+            Console.WriteLine("Invalid operation type.");
         }
     }
 
-    static byte[] SignData(byte[] data)
+    static void EncryptFile(string inputFile, string outputFile, string password)
     {
-        using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+        using (Aes aes = Aes.Create())
         {
-            string privateKeyXml = File.ReadAllText("privateKey.xml");
-            rsa.FromXmlString(privateKeyXml);
+            var key = DeriveKey(password, aes.KeySize / 8, aes.BlockSize / 8);
+            aes.Key = key.Item1;
+            aes.IV = key.Item2;
 
-            // Use SHA256 as hash algorithm
-            return rsa.SignData(data, CryptoConfig.MapNameToOID("SHA256"));
+            using (FileStream fsInput = new FileStream(inputFile, FileMode.Open, FileAccess.Read))
+            using (FileStream fsEncrypted = new FileStream(outputFile, FileMode.Create, FileAccess.Write))
+            using (CryptoStream cs = new CryptoStream(fsEncrypted, aes.CreateEncryptor(), CryptoStreamMode.Write))
+            {
+                fsInput.CopyTo(cs);
+            }
         }
     }
 
-    static bool VerifyData(byte[] data, byte[] signature)
+    static void DecryptFile(string inputFile, string outputFile, string password)
     {
-        using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+        using (Aes aes = Aes.Create())
         {
-            string publicKeyXml = File.ReadAllText("publicKey.xml");
-            rsa.FromXmlString(publicKeyXml);
+            var key = DeriveKey(password, aes.KeySize / 8, aes.BlockSize / 8);
+            aes.Key = key.Item1;
+            aes.IV = key.Item2;
 
-            return rsa.VerifyData(data, CryptoConfig.MapNameToOID("SHA256"), signature);
+            using (FileStream fsEncrypted = new FileStream(inputFile, FileMode.Open, FileAccess.Read))
+            using (FileStream fsDecrypted = new FileStream(outputFile, FileMode.Create, FileAccess.Write))
+            using (CryptoStream cs = new CryptoStream(fsEncrypted, aes.CreateDecryptor(), CryptoStreamMode.Read))
+            {
+                cs.CopyTo(fsDecrypted);
+            }
+        }
+    }
+
+    static Tuple<byte[], byte[]> DeriveKey(string password, int keyBytes, int ivBytes)
+    {
+        using (var pdb = new Rfc2898DeriveBytes(password, salt, 10000)) // 10000 iterations
+        {
+            byte[] key = pdb.GetBytes(keyBytes);
+            byte[] iv = pdb.GetBytes(ivBytes);
+            return Tuple.Create(key, iv);
         }
     }
 }
 
-public static class RSAExtensions
-{
-    public static void FromXmlString(this RSACryptoServiceProvider rsa, string xmlString)
-    {
-        var serializer = new XmlSerializer(typeof(RSAParameters));
-        using (var reader = new StringReader(xmlString))
-        {
-            RSAParameters parameters = (RSAParameters)serializer.Deserialize(reader);
-            rsa.ImportParameters(parameters);
-        }
-    }
-
-    public static string ToXmlString(this RSACryptoServiceProvider rsa, bool includePrivateParameters)
-    {
-        var parameters = rsa.ExportParameters(includePrivateParameters);
-        var serializer = new XmlSerializer(typeof(RSAParameters));
-        using (var writer = new StringWriter())
-        {
-            serializer.Serialize(writer, parameters);
-            return writer.ToString();
-        }
-    }
-}
