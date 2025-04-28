@@ -1,8 +1,4 @@
-﻿// // 1. [3 punkty] Program szyfrujący przy pomocy kryptografii klucza asymetrycznego. Napisz program który jako parametr przyjmuje typ polecenia. W zależności od wybranego typu polecenia:
-// //     - Jeżeli typ polecenia = 0 program ma wygenerować i zapisać do dwóch plików (o dowolnych nazwach, można je wpisać "na sztywno") klucz publiczny oraz klucz prywatny algorytmu RSA.
-// //     - Jeżeli typ polecenia = 1, program dodatkowo pobiera nazwę dwóch plików (a), (b). Podany plik (a) ma zostać zaszyfrowany przy pomocy klucza publicznego odczytanego z pliku, który został stworzony przy pomocy tego programu kiedy typ polecenia = 0. Zaszyfrowane dane mają być zapisane w pliku (b).
-// //     - Jeżeli typ polecenia = 2, program dodatkowo pobiera nazwę dwóch plików (a), (b). Podany plik (a) ma zostać odszyfrowany przy pomocy klucza prywatnego odczytanego z pliku, który został stworzony przy pomocy tego programu kiedy typ polecenia = 0. Odszyfrowane dane mają być zapisane w pliku (b).
-
+﻿// Exc1
 // using System;
 // using System.IO;
 // using System.Security.Cryptography;
@@ -106,24 +102,103 @@
 //     }
 // }
 
+
+// Exc2
+// using System;
+// using System.IO;
+// using System.Security.Cryptography;
+// using System.Text;
+
+// class Program
+// {
+//     static void Main(string[] args)
+//     {
+//         if (args.Length != 3)
+//         {
+//             Console.WriteLine("Usage: Program <inputFile> <hashFile> <algorithm>");
+//             return;
+//         }
+
+//         string inputFile = args[0];
+//         string hashFile = args[1];
+//         string algorithmName = args[2].ToUpper();
+
+//         if (!File.Exists(inputFile))
+//         {
+//             Console.WriteLine($"Input file {inputFile} does not exist.");
+//             return;
+//         }
+
+//         string computedHash = ComputeHash(inputFile, algorithmName);
+
+//         if (!File.Exists(hashFile))
+//         {
+//             // Save computed hash to hash file
+//             File.WriteAllText(hashFile, computedHash);
+//             Console.WriteLine($"Hash saved to {hashFile}.");
+//         }
+//         else
+//         {
+//             // Read existing hash
+//             string existingHash = File.ReadAllText(hashFile).Trim();
+
+//             if (string.Equals(computedHash, existingHash, StringComparison.OrdinalIgnoreCase))
+//             {
+//                 Console.WriteLine("Hash matches.");
+//             }
+//             else
+//             {
+//                 Console.WriteLine("Hash does NOT match.");
+//             }
+//         }
+//     }
+
+//     static string ComputeHash(string filePath, string algorithmName)
+//     {
+//         using (FileStream stream = File.OpenRead(filePath))
+//         {
+//             HashAlgorithm algorithm;
+//             switch (algorithmName)
+//             {
+//                 case "SHA256":
+//                     algorithm = SHA256.Create();
+//                     break;
+//                 case "SHA512":
+//                     algorithm = SHA512.Create();
+//                     break;
+//                 case "MD5":
+//                     algorithm = MD5.Create();
+//                     break;
+//                 default:
+//                     throw new ArgumentException("Unsupported algorithm. Use SHA256, SHA512, or MD5.");
+//             }
+
+//             byte[] hashBytes = algorithm.ComputeHash(stream);
+//             return BitConverter.ToString(hashBytes).Replace("-", "").ToUpperInvariant();
+//         }
+//     }
+// }
+
+
+//Exc 3
 using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Xml.Serialization;
 
 class Program
 {
     static void Main(string[] args)
     {
-        if (args.Length != 3)
+        if (args.Length != 2)
         {
-            Console.WriteLine("Usage: Program <inputFile> <hashFile> <algorithm>");
+            Console.WriteLine("Usage: Program <inputFile> <signatureFile>");
             return;
         }
 
         string inputFile = args[0];
-        string hashFile = args[1];
-        string algorithmName = args[2].ToUpper();
+        string signatureFile = args[1];
 
         if (!File.Exists(inputFile))
         {
@@ -131,52 +206,80 @@ class Program
             return;
         }
 
-        string computedHash = ComputeHash(inputFile, algorithmName);
-
-        if (!File.Exists(hashFile))
+        if (!File.Exists("privateKey.xml") || !File.Exists("publicKey.xml"))
         {
-            // Save computed hash to hash file
-            File.WriteAllText(hashFile, computedHash);
-            Console.WriteLine($"Hash saved to {hashFile}.");
+            Console.WriteLine("Key files (privateKey.xml and publicKey.xml) are missing.");
+            return;
+        }
+
+        if (!File.Exists(signatureFile))
+        {
+            // Signature file doesn't exist, create it
+            byte[] data = File.ReadAllBytes(inputFile);
+            byte[] signature = SignData(data);
+
+            File.WriteAllBytes(signatureFile, signature);
+            Console.WriteLine($"Signature created and saved to {signatureFile}.");
         }
         else
         {
-            // Read existing hash
-            string existingHash = File.ReadAllText(hashFile).Trim();
+            // Signature file exists, verify
+            byte[] data = File.ReadAllBytes(inputFile);
+            byte[] signature = File.ReadAllBytes(signatureFile);
 
-            if (string.Equals(computedHash, existingHash, StringComparison.OrdinalIgnoreCase))
-            {
-                Console.WriteLine("Hash matches.");
-            }
+            bool valid = VerifyData(data, signature);
+
+            if (valid)
+                Console.WriteLine("Signature is valid.");
             else
-            {
-                Console.WriteLine("Hash does NOT match.");
-            }
+                Console.WriteLine("Signature is INVALID.");
         }
     }
 
-    static string ComputeHash(string filePath, string algorithmName)
+    static byte[] SignData(byte[] data)
     {
-        using (FileStream stream = File.OpenRead(filePath))
+        using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
         {
-            HashAlgorithm algorithm;
-            switch (algorithmName)
-            {
-                case "SHA256":
-                    algorithm = SHA256.Create();
-                    break;
-                case "SHA512":
-                    algorithm = SHA512.Create();
-                    break;
-                case "MD5":
-                    algorithm = MD5.Create();
-                    break;
-                default:
-                    throw new ArgumentException("Unsupported algorithm. Use SHA256, SHA512, or MD5.");
-            }
+            string privateKeyXml = File.ReadAllText("privateKey.xml");
+            rsa.FromXmlString(privateKeyXml);
 
-            byte[] hashBytes = algorithm.ComputeHash(stream);
-            return BitConverter.ToString(hashBytes).Replace("-", "").ToUpperInvariant();
+            // Use SHA256 as hash algorithm
+            return rsa.SignData(data, CryptoConfig.MapNameToOID("SHA256"));
+        }
+    }
+
+    static bool VerifyData(byte[] data, byte[] signature)
+    {
+        using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider())
+        {
+            string publicKeyXml = File.ReadAllText("publicKey.xml");
+            rsa.FromXmlString(publicKeyXml);
+
+            return rsa.VerifyData(data, CryptoConfig.MapNameToOID("SHA256"), signature);
+        }
+    }
+}
+
+public static class RSAExtensions
+{
+    public static void FromXmlString(this RSACryptoServiceProvider rsa, string xmlString)
+    {
+        var serializer = new XmlSerializer(typeof(RSAParameters));
+        using (var reader = new StringReader(xmlString))
+        {
+            RSAParameters parameters = (RSAParameters)serializer.Deserialize(reader);
+            rsa.ImportParameters(parameters);
+        }
+    }
+
+    public static string ToXmlString(this RSACryptoServiceProvider rsa, bool includePrivateParameters)
+    {
+        var parameters = rsa.ExportParameters(includePrivateParameters);
+        var serializer = new XmlSerializer(typeof(RSAParameters));
+        using (var writer = new StringWriter())
+        {
+            serializer.Serialize(writer, parameters);
+            return writer.ToString();
         }
     }
 }
