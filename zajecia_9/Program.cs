@@ -49,7 +49,7 @@ class Program
         var columnTypes = GetColumnTypes(data);
 
         // Utworzenie bazy danych SQLite
-        using (var connection = new SQLiteConnection("Data Source=db3.db;Version=3;"))
+        using (var connection = new SQLiteConnection("Data Source=db5.db;Version=3;"))
         {
             connection.Open();
 
