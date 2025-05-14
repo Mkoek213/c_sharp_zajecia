@@ -1,0 +1,9 @@
+@{
+    ViewData["Title"] = "Zalogowano";
+}
+
+<h2>Jesteś zalogowany!</h2>
+
+<form method="post" asp-controller="IO" asp-action="Wyloguj">
+    <button type="submit" class="btn btn-danger">Wyloguj</button>
+</form>
