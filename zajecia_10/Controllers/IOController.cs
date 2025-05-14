@@ -1,43 +1,45 @@
+// Controllers/IOController.cs
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+using LoginApp.Data;
+using System.Linq;
 
 public class IOController : Controller
 {
     private const string LoginSessionKey = "IsLoggedIn";
+    private readonly ApplicationDbContext _db;
 
-    // GET: /IO/Logowanie
-    public IActionResult Logowanie()
+    public IOController(ApplicationDbContext db)
     {
-        return View();
+        _db = db;
     }
 
-    // POST: /IO/Logowanie
+    public IActionResult Logowanie() => View();
+
     [HttpPost]
     public IActionResult Logowanie(string login, string haslo)
     {
-        // Tymczasowe dane logowania
-        string prawidlowyLogin = "admin";
-        string prawidloweHaslo = "1234";
+        // Prosta weryfikacja „hashu” jako zwykłego porównania
+        var user = _db.Loginy
+            .FirstOrDefault(u => u.Username == login && u.PasswordHash == haslo);
 
-        if (login == prawidlowyLogin && haslo == prawidloweHaslo)
+        if (user != null)
         {
             HttpContext.Session.SetString(LoginSessionKey, "true");
             return RedirectToAction("Zalogowano");
         }
 
-        ViewBag.Error = "Błędny login lub hasło";
+        ViewBag.Error = "Nieprawidłowy login lub hasło";
         return View();
     }
 
     public IActionResult Zalogowano()
     {
         if (HttpContext.Session.GetString(LoginSessionKey) != "true")
-        {
             return RedirectToAction("Logowanie");
-        }
         return View();
     }
 
+    [HttpPost]
     public IActionResult Wyloguj()
     {
         HttpContext.Session.Remove(LoginSessionKey);
