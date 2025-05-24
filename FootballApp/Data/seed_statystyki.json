@@ -1,0 +1,6 @@
+[
+  { "Id": 1, "ZawodnikId": 1, "Mecze": 15, "Gole": 1, "Asysty": 2 },
+  { "Id": 2, "ZawodnikId": 2, "Mecze": 14, "Gole": 10, "Asysty": 3 },
+  { "Id": 3, "ZawodnikId": 3, "Mecze": 16, "Gole": 0, "Asysty": 0 },
+  { "Id": 4, "ZawodnikId": 4, "Mecze": 13, "Gole": 5, "Asysty": 7 }
+]

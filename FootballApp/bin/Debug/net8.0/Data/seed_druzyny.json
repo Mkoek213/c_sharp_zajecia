@@ -1,0 +1,6 @@
+[
+  { "Id": 1, "Nazwa": "Legia Warszawa", "Miasto": "Warszawa" },
+  { "Id": 2, "Nazwa": "Lech Poznań", "Miasto": "Poznań" },
+  { "Id": 3, "Nazwa": "Raków Częstochowa", "Miasto": "Częstochowa" },
+  { "Id": 4, "Nazwa": "Pogoń Szczecin", "Miasto": "Szczecin" }
+]

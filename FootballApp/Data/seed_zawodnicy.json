@@ -1,0 +1,6 @@
+[
+  { "Id": 1, "Imię": "Artur", "Nazwisko": "Jędrzejczyk", "Pozycja": "Obrońca", "DruzynaId": 1 },
+  { "Id": 2, "Imię": "Michał", "Nazwisko": "Piątek", "Pozycja": "Napastnik", "DruzynaId": 2 },
+  { "Id": 3, "Imię": "Jakub", "Nazwisko": "Ojrzyński", "Pozycja": "Bramkarz", "DruzynaId": 3 },
+  { "Id": 4, "Imię": "Kamil", "Nazwisko": "Grosicki", "Pozycja": "Skrzydłowy", "DruzynaId": 4 }
+]

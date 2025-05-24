@@ -1,0 +1,18 @@
+[
+  {
+    "Id": 1,
+    "Data": "2025-08-10T18:00:00",
+    "DruzynaDomowaId": 1,
+    "DruzynaGościId": 2,
+    "WynikDomowy": 2,
+    "WynikGości": 1
+  },
+  {
+    "Id": 2,
+    "Data": "2025-08-11T20:30:00",
+    "DruzynaDomowaId": 3,
+    "DruzynaGościId": 4,
+    "WynikDomowy": 0,
+    "WynikGości": 3
+  }
+]
