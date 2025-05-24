@@ -1,14 +1,17 @@
-using System.Text.Json;
-using Microsoft.EntityFrameworkCore;
-using FootballApp.Models;
-
-
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<FootballLeagueContext>(options =>
     options.UseSqlite("Data Source=footballleague.db"));
+
+// Add cookie authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/Account/Login";
+    });
 
 var app = builder.Build();
 
@@ -23,6 +26,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Add these middlewares
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
@@ -38,7 +43,7 @@ using (var scope = app.Services.CreateScope())
     if (!context.Druzyny.Any())
     {
         var json = File.ReadAllText("Data/seed_druzyny.json");
-        var druzyny = JsonSerializer.Deserialize<List<Druzyna>>(json);
+        var druzyny = System.Text.Json.JsonSerializer.Deserialize<List<Druzyna>>(json);
         context.Druzyny.AddRange(druzyny);
         context.SaveChanges();
     }
@@ -46,7 +51,7 @@ using (var scope = app.Services.CreateScope())
     if (!context.Zawodnicy.Any())
     {
         var json = File.ReadAllText("Data/seed_zawodnicy.json");
-        var zawodnicy = JsonSerializer.Deserialize<List<Zawodnik>>(json);
+        var zawodnicy = System.Text.Json.JsonSerializer.Deserialize<List<Zawodnik>>(json);
         context.Zawodnicy.AddRange(zawodnicy);
         context.SaveChanges();
     }
@@ -54,7 +59,7 @@ using (var scope = app.Services.CreateScope())
     if (!context.Mecze.Any())
     {
         var json = File.ReadAllText("Data/seed_mecze.json");
-        var mecze = JsonSerializer.Deserialize<List<Mecz>>(json);
+        var mecze = System.Text.Json.JsonSerializer.Deserialize<List<Mecz>>(json);
         context.Mecze.AddRange(mecze);
         context.SaveChanges();
     }
@@ -62,7 +67,7 @@ using (var scope = app.Services.CreateScope())
     if (!context.StatystykiZawodnikow.Any())
     {
         var json = File.ReadAllText("Data/seed_statystyki.json");
-        var statystyki = JsonSerializer.Deserialize<List<StatystykiZawodnika>>(json);
+        var statystyki = System.Text.Json.JsonSerializer.Deserialize<List<StatystykiZawodnika>>(json);
         context.StatystykiZawodnikow.AddRange(statystyki);
         context.SaveChanges();
     }

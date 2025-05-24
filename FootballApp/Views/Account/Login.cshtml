@@ -1,0 +1,31 @@
+@{
+    ViewData["Title"] = "Login";
+    string returnUrl = ViewData["ReturnUrl"] as string ?? "/";
+}
+
+<h2>Login</h2>
+
+<form method="post" asp-action="Login" asp-controller="Account">
+    <input type="hidden" name="returnUrl" value="@returnUrl" />
+    <div>
+        <label>Username:</label>
+        <input type="text" name="username" />
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" name="password" />
+    </div>
+    <div>
+        <button type="submit">Login</button>
+    </div>
+
+    @if (!ViewData.ModelState.IsValid)
+    {
+        <div style="color:red;">
+            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+            {
+                <div>@error.ErrorMessage</div>
+            }
+        </div>
+    }
+</form>

@@ -1,8 +1,23 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<FootballApp.Models.Druzyna>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h2>Teams</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>City</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var team in Model)
+    {
+        <tr>
+            <td>@team.Id</td>
+            <td>@team.Miasto</td>
+            <td>@team.Nazwa</td>
+        </tr>
+    }
+    </tbody>
+</table>
