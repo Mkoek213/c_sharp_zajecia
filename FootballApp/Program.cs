@@ -1,4 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
+using FootballApp.Models;
+using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 

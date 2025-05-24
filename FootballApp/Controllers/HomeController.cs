@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using FootballApp.Models;
 using System.Linq;
+using System.Diagnostics;
+
 
 namespace FootballApp.Controllers;
 
