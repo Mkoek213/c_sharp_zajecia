@@ -4,7 +4,7 @@ public class FootballLeagueContext : DbContext
 {
     public FootballLeagueContext(DbContextOptions<FootballLeagueContext> options) : base(options) { }
 
-    public DbSet<Drużyna> Druzyny { get; set; }
+    public DbSet<Druzyna> Druzyny { get; set; }
     public DbSet<Zawodnik> Zawodnicy { get; set; }
     public DbSet<Mecz> Mecze { get; set; }
     public DbSet<StatystykiZawodnika> StatystykiZawodników { get; set; }
@@ -13,15 +13,15 @@ public class FootballLeagueContext : DbContext
     {
         // Relacje mecze - drużyny
         modelBuilder.Entity<Mecz>()
-            .HasOne(m => m.DrużynaDomowa)
+            .HasOne(m => m.DruzynaDomowa)
             .WithMany(d => d.MeczeDomowe)
-            .HasForeignKey(m => m.DrużynaDomowaId)
+            .HasForeignKey(m => m.DruzynaDomowaId)
             .OnDelete(DeleteBehavior.Restrict);
 
         modelBuilder.Entity<Mecz>()
-            .HasOne(m => m.DrużynaGości)
+            .HasOne(m => m.DruzynaGości)
             .WithMany(d => d.MeczeGości)
-            .HasForeignKey(m => m.DrużynaGościId)
+            .HasForeignKey(m => m.DruzynaGościId)
             .OnDelete(DeleteBehavior.Restrict);
 
         // Relacja zawodnik-statystyki

@@ -4,7 +4,7 @@ public class Mecz
     public DateTime Data { get; set; }
 
     public int DruzynaDomowaId { get; set; }
-    public Drużyna DrużynaDomowa { get; set; }
+    public Druzyna DruzynaDomowa { get; set; }
 
     public int DruzynaGościId { get; set; }
     public Druzyna DruzynaGości { get; set; }

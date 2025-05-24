@@ -1,0 +1,9 @@
+/home/mikolaj/work/c_sharp_zajecia/FootballApp/obj/Debug/net8.0/FootballApp.csproj.AssemblyReference.cache
+/home/mikolaj/work/c_sharp_zajecia/FootballApp/obj/Debug/net8.0/FootballApp.GeneratedMSBuildEditorConfig.editorconfig
+/home/mikolaj/work/c_sharp_zajecia/FootballApp/obj/Debug/net8.0/FootballApp.AssemblyInfoInputs.cache
+/home/mikolaj/work/c_sharp_zajecia/FootballApp/obj/Debug/net8.0/FootballApp.AssemblyInfo.cs
+/home/mikolaj/work/c_sharp_zajecia/FootballApp/obj/Debug/net8.0/FootballApp.csproj.CoreCompileInputs.cache
+/home/mikolaj/work/c_sharp_zajecia/FootballApp/obj/Debug/net8.0/FootballApp.MvcApplicationPartsAssemblyInfo.cache
+/home/mikolaj/work/c_sharp_zajecia/FootballApp/obj/Debug/net8.0/FootballApp.RazorAssemblyInfo.cache
+/home/mikolaj/work/c_sharp_zajecia/FootballApp/obj/Debug/net8.0/FootballApp.RazorAssemblyInfo.cs
+/home/mikolaj/work/c_sharp_zajecia/FootballApp/obj/Debug/net8.0/FootballApp.sourcelink.json

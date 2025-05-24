@@ -2,6 +2,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<FootballLeagueContext>(options =>
+    options.UseSqlite("Data Source=footballleague.db"));
+
 
 var app = builder.Build();
 
