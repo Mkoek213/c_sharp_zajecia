@@ -5,8 +5,8 @@ public class Zawodnik
     public string Nazwisko { get; set; }
     public string Pozycja { get; set; }
 
-    public int DrużynaId { get; set; }
-    public Drużyna Drużyna { get; set; }
+    public int DruzynaId { get; set; }
+    public Druzyna Druzyna { get; set; }
 
     public StatystykiZawodnika Statystyki { get; set; }
 }
