@@ -10,6 +10,6 @@ namespace FootballApp.Models
         public int? DruzynaId { get; set; }
         public Druzyna? Druzyna { get; set; }
 
-        public StatystykiZawodnika Statystyki { get; set; } = new StatystykiZawodnika(); 
+        public StatystykiZawodnika Statystyki { get; set; }
     }
 }
