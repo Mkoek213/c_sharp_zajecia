@@ -12,6 +12,7 @@
     @Html.AntiForgeryToken()
     <input type="hidden" name="teamId" value="@teamId" />
 
+    <!-- Player Info (no change) -->
     <div class="mb-3">
         <label asp-for="Imie" class="form-label">First Name</label>
         <input asp-for="Imie" class="form-control" />
@@ -27,6 +28,23 @@
         <input asp-for="Pozycja" class="form-control" />
         <span asp-validation-for="Pozycja" class="text-danger"></span>
     </div>
+
+    <!-- Stats Info -->
+    <h5>Stats</h5>
+    <div class="mb-3">
+        <label asp-for="Statystyki.Mecze" class="form-label">Matches</label>
+        <input asp-for="Statystyki.Mecze" class="form-control" type="number" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Statystyki.Gole" class="form-label">Goals</label>
+        <input asp-for="Statystyki.Gole" class="form-control" type="number" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Statystyki.Asysty" class="form-label">Assists</label>
+        <input asp-for="Statystyki.Asysty" class="form-control" type="number" />
+    </div>
+
+    
 
     <button type="submit" name="submitAction" value="Add"  class="btn btn-primary">Add Player</button>
     <button type="submit" name="submitAction" value="Done" class="btn btn-success">Done Adding Players</button>
