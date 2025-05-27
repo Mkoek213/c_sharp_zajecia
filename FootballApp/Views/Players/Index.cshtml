@@ -1,0 +1,31 @@
+@model List<FootballApp.Models.Zawodnik>
+
+@{
+    ViewData["Title"] = "Players";
+}
+
+<h2>Players</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Position</th>
+            <th>Team</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var player in Model)
+    {
+        <tr>
+            <td>@player.Id</td>
+            <td>@player.Imię</td>
+            <td>@player.Nazwisko</td>
+            <td>@player.Pozycja</td>
+            <td>@(player.Druzyna?.Nazwa ?? "Free")</td>
+        </tr>
+    }
+    </tbody>
+</table>

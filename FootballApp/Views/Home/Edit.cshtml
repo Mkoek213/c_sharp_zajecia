@@ -1,0 +1,21 @@
+@model FootballApp.Models.Druzyna
+
+@{
+    ViewData["Title"] = "Edit Team";
+}
+
+<h2>Edit Team</h2>
+
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3">
+        <label asp-for="Miasto" class="form-label"></label>
+        <input asp-for="Miasto" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Nazwa" class="form-label"></label>
+        <input asp-for="Nazwa" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Save Changes</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

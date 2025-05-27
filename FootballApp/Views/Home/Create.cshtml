@@ -1,0 +1,20 @@
+@model FootballApp.Models.Druzyna
+
+@{
+    ViewData["Title"] = "Create Team";
+}
+
+<h2>Create New Team</h2>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="Miasto" class="form-label"></label>
+        <input asp-for="Miasto" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Nazwa" class="form-label"></label>
+        <input asp-for="Nazwa" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

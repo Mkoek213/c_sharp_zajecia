@@ -1,0 +1,31 @@
+@model List<FootballApp.Models.Mecz>
+
+@{
+    ViewData["Title"] = "Matches";
+}
+
+<h2>Matches</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Home Team</th>
+            <th>Away Team</th>
+            <th>Date</th>
+            <th>Score</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var match in Model)
+    {
+        <tr>
+            <td>@match.Id</td>
+            <td>@match.DruzynaDomowa?.Nazwa</td>
+            <td>@match.DruzynaGości?.Nazwa</td>
+            <td>@match.Data.ToShortDateString()</td>
+            <td>@match.WynikDomowy - @match.WynikGości</td>
+        </tr>
+    }
+    </tbody>
+</table>

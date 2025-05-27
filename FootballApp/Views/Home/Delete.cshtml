@@ -1,0 +1,17 @@
+@model FootballApp.Models.Druzyna
+
+@{
+    ViewData["Title"] = "Delete Team";
+}
+
+<h2>Delete Team</h2>
+
+<div class="alert alert-danger">
+    Are you sure you want to delete the team <strong>@Model.Nazwa</strong> from <strong>@Model.Miasto</strong>?
+</div>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Yes, delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

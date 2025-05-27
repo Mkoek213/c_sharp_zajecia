@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using FootballApp.Models;
 using System.Linq;
 using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace FootballApp.Controllers;
@@ -21,19 +22,84 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        // Example: fetch teams and pass to view
+        ViewData["MenuTitle"] = "Teams";
         var teams = _context.Druzyny.ToList();
         return View(teams);
     }
 
-    public IActionResult Privacy()
+    public IActionResult Create()
     {
         return View();
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
+    [HttpPost]
+    public IActionResult Create(Druzyna team)
     {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        if (ModelState.IsValid)
+        {
+            _context.Druzyny.Add(team);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+        return View(team);
     }
+
+    public IActionResult Edit(int id)
+    {
+        var team = _context.Druzyny.Find(id);
+        if (team == null)
+            return NotFound();
+
+        return View(team);
+    }
+
+    [HttpPost]
+    public IActionResult Edit(int id, Druzyna updatedTeam)
+    {
+        if (id != updatedTeam.Id)
+            return BadRequest();
+
+        if (ModelState.IsValid)
+        {
+            _context.Update(updatedTeam);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
+        return View(updatedTeam);
+    }
+
+    public IActionResult Delete(int id)
+    {
+        var team = _context.Druzyny.Find(id);
+        if (team == null)
+            return NotFound();
+
+        return View(team);
+    }
+
+    [HttpPost, ActionName("Delete")]
+    public IActionResult DeleteConfirmed(int id)
+    {
+        var team = _context.Druzyny
+            .Include(t => t.Zawodnicy)
+            .FirstOrDefault(t => t.Id == id);
+
+        if (team == null)
+            return NotFound();
+
+        // Set teamless players to "Free"
+        foreach (var player in team.Zawodnicy)
+        {
+            player.DruzynaId = null;
+            // Optionally add a "Status" field like player.Status = "Free Agent";
+        }
+
+        _context.Druzyny.Remove(team);
+        _context.SaveChanges();
+
+        return RedirectToAction(nameof(Index));
+    }
+
 }
+

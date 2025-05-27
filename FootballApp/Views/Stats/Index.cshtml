@@ -1,0 +1,29 @@
+@model List<FootballApp.Models.StatystykiZawodnika>
+
+@{
+    ViewData["Title"] = "Player Stats";
+}
+
+<h2>Player Stats</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Player</th>
+            <th>Matches</th>
+            <th>Goals</th>
+            <th>Assists</th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var stat in Model)
+    {
+        <tr>
+            <td>@stat.Zawodnik?.Imię @stat.Zawodnik?.Nazwisko</td>
+            <td>@stat.Mecze</td>
+            <td>@stat.Gole</td>
+            <td>@stat.Asysty</td>
+        </tr>
+    }
+    </tbody>
+</table>

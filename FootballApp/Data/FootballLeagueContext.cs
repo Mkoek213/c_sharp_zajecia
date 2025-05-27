@@ -12,23 +12,25 @@ public class FootballLeagueContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        // Matches involving the team get deleted
         modelBuilder.Entity<Mecz>()
             .HasOne(m => m.DruzynaDomowa)
             .WithMany(d => d.MeczeDomowe)
             .HasForeignKey(m => m.DruzynaDomowaId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Mecz>()
             .HasOne(m => m.DruzynaGości)
             .WithMany(d => d.MeczeGości)
             .HasForeignKey(m => m.DruzynaGościId)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Cascade);
 
+        // DO NOT delete players when team is deleted
         modelBuilder.Entity<Zawodnik>()
-            .HasOne(z => z.Statystyki)
-            .WithOne(s => s.Zawodnik)
-            .HasForeignKey<StatystykiZawodnika>(s => s.ZawodnikId);
-
-        base.OnModelCreating(modelBuilder);
+            .HasOne(z => z.Druzyna)
+            .WithMany(d => d.Zawodnicy)
+            .HasForeignKey(z => z.DruzynaId)
+            .OnDelete(DeleteBehavior.SetNull); // Important
     }
+
 }

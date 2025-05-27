@@ -7,8 +7,8 @@ namespace FootballApp.Models
         public string Nazwisko { get; set; }
         public string Pozycja { get; set; }
 
-        public int DruzynaId { get; set; }
-        public Druzyna Druzyna { get; set; }
+        public int? DruzynaId { get; set; }
+        public Druzyna? Druzyna { get; set; }
 
         public StatystykiZawodnika Statystyki { get; set; }
     }
