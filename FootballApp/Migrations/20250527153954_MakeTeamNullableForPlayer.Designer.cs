@@ -103,7 +103,7 @@ namespace FootballApp.Migrations
                     b.Property<int?>("DruzynaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Imię")
+                    b.Property<string>("Imie")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

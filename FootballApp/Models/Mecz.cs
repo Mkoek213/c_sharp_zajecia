@@ -11,7 +11,8 @@ namespace FootballApp.Models
         public int DruzynaGościId { get; set; }
         public Druzyna DruzynaGości { get; set; }
 
-        public int WynikDomowy { get; set; }
-        public int WynikGości { get; set; }
+        public int? WynikDomowy { get; set; }
+        public int? WynikGości { get; set; }
+
     }
 }

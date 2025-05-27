@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FootballApp.Migrations
 {
     [DbContext(typeof(FootballLeagueContext))]
-    [Migration("20250524174339_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250527163131_SyncModelChanges")]
+    partial class SyncModelChanges
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -19,7 +19,7 @@ namespace FootballApp.Migrations
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
 
-            modelBuilder.Entity("Druzyna", b =>
+            modelBuilder.Entity("FootballApp.Models.Druzyna", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -38,7 +38,7 @@ namespace FootballApp.Migrations
                     b.ToTable("Druzyny");
                 });
 
-            modelBuilder.Entity("Mecz", b =>
+            modelBuilder.Entity("FootballApp.Models.Mecz", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -53,10 +53,10 @@ namespace FootballApp.Migrations
                     b.Property<int>("DruzynaGościId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("WynikDomowy")
+                    b.Property<int?>("WynikDomowy")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("WynikGości")
+                    b.Property<int?>("WynikGości")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -68,7 +68,7 @@ namespace FootballApp.Migrations
                     b.ToTable("Mecze");
                 });
 
-            modelBuilder.Entity("StatystykiZawodnika", b =>
+            modelBuilder.Entity("FootballApp.Models.StatystykiZawodnika", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,13 +94,13 @@ namespace FootballApp.Migrations
                     b.ToTable("StatystykiZawodnikow");
                 });
 
-            modelBuilder.Entity("Zawodnik", b =>
+            modelBuilder.Entity("FootballApp.Models.Zawodnik", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("DruzynaId")
+                    b.Property<int?>("DruzynaId")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Imie")
@@ -122,18 +122,18 @@ namespace FootballApp.Migrations
                     b.ToTable("Zawodnicy");
                 });
 
-            modelBuilder.Entity("Mecz", b =>
+            modelBuilder.Entity("FootballApp.Models.Mecz", b =>
                 {
-                    b.HasOne("Druzyna", "DruzynaDomowa")
+                    b.HasOne("FootballApp.Models.Druzyna", "DruzynaDomowa")
                         .WithMany("MeczeDomowe")
                         .HasForeignKey("DruzynaDomowaId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Druzyna", "DruzynaGości")
+                    b.HasOne("FootballApp.Models.Druzyna", "DruzynaGości")
                         .WithMany("MeczeGości")
                         .HasForeignKey("DruzynaGościId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("DruzynaDomowa");
@@ -141,29 +141,28 @@ namespace FootballApp.Migrations
                     b.Navigation("DruzynaGości");
                 });
 
-            modelBuilder.Entity("StatystykiZawodnika", b =>
+            modelBuilder.Entity("FootballApp.Models.StatystykiZawodnika", b =>
                 {
-                    b.HasOne("Zawodnik", "Zawodnik")
+                    b.HasOne("FootballApp.Models.Zawodnik", "Zawodnik")
                         .WithOne("Statystyki")
-                        .HasForeignKey("StatystykiZawodnika", "ZawodnikId")
+                        .HasForeignKey("FootballApp.Models.StatystykiZawodnika", "ZawodnikId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Zawodnik");
                 });
 
-            modelBuilder.Entity("Zawodnik", b =>
+            modelBuilder.Entity("FootballApp.Models.Zawodnik", b =>
                 {
-                    b.HasOne("Druzyna", "Druzyna")
+                    b.HasOne("FootballApp.Models.Druzyna", "Druzyna")
                         .WithMany("Zawodnicy")
                         .HasForeignKey("DruzynaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.SetNull);
 
                     b.Navigation("Druzyna");
                 });
 
-            modelBuilder.Entity("Druzyna", b =>
+            modelBuilder.Entity("FootballApp.Models.Druzyna", b =>
                 {
                     b.Navigation("MeczeDomowe");
 
@@ -172,7 +171,7 @@ namespace FootballApp.Migrations
                     b.Navigation("Zawodnicy");
                 });
 
-            modelBuilder.Entity("Zawodnik", b =>
+            modelBuilder.Entity("FootballApp.Models.Zawodnik", b =>
                 {
                     b.Navigation("Statystyki")
                         .IsRequired();

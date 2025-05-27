@@ -7,14 +7,21 @@
 <h2>Create New Team</h2>
 
 <form asp-action="Create" method="post">
+    @Html.AntiForgeryToken()
+    <div asp-validation-summary="All" class="text-danger"></div>
+
     <div class="mb-3">
         <label asp-for="Miasto" class="form-label"></label>
         <input asp-for="Miasto" class="form-control" />
+        <span asp-validation-for="Miasto" class="text-danger"></span>
     </div>
+
     <div class="mb-3">
         <label asp-for="Nazwa" class="form-label"></label>
         <input asp-for="Nazwa" class="form-control" />
+        <span asp-validation-for="Nazwa" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-success">Save</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>
 </form>

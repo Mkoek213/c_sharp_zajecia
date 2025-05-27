@@ -39,10 +39,13 @@ public class HomeController : Controller
         {
             _context.Druzyny.Add(team);
             _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+
+            // Redirect to AddPlayers action with the newly created team id
+            return RedirectToAction(nameof(AddPlayers), new { teamId = team.Id });
         }
         return View(team);
     }
+
 
     public IActionResult Edit(int id)
     {
@@ -100,6 +103,94 @@ public class HomeController : Controller
 
         return RedirectToAction(nameof(Index));
     }
+
+    // GET: show AddPlayers form
+    [HttpGet]
+    public IActionResult AddPlayers(int teamId)
+    {
+        var team = _context.Druzyny.Find(teamId);
+        if (team == null) return NotFound();
+
+        ViewData["TeamName"] = team.Nazwa;
+        ViewData["TeamId"]   = team.Id;
+        ViewData["Players"]  = _context.Zawodnicy.Where(p => p.DruzynaId == teamId).ToList();
+
+        // Pass an empty Zawodnik for the form
+        return View(new Zawodnik());
+    }
+
+    // POST: handle Add or Done
+    [HttpPost]
+    public IActionResult AddPlayers(int teamId, Zawodnik player, string submitAction)
+    {
+        var team = _context.Druzyny.Find(teamId);
+        if (team == null) return NotFound();
+
+        if (submitAction == "Add" && ModelState.IsValid)
+        {
+            player.DruzynaId = teamId;
+            _context.Zawodnicy.Add(player);
+            _context.SaveChanges();
+        }
+
+        if (submitAction == "Done")
+        {
+            return RedirectToAction(nameof(AddMatches), new { teamId });
+        }
+
+        // If we reach here, either we just added one, or validation failed.
+        // Re-run the GET logic so ViewData["Players"] is correct.
+        ViewData["TeamName"] = team.Nazwa;
+        ViewData["TeamId"]   = team.Id;
+        ViewData["Players"]  = _context.Zawodnicy.Where(p => p.DruzynaId == teamId).ToList();
+
+        // Return a fresh form model
+        return View(new Zawodnik());
+    }
+
+
+
+
+    // GET: show the AddMatches form
+    [HttpGet]
+    public IActionResult AddMatches(int teamId)
+    {
+        var team = _context.Druzyny.Find(teamId);
+        if (team == null) return NotFound();
+
+        ViewData["TeamName"] = team.Nazwa;
+        ViewData["TeamId"]   = team.Id;
+
+        // Existing matches for this team
+        ViewData["Matches"] = _context.Mecze
+            .Include(m => m.DruzynaDomowa)
+            .Include(m => m.DruzynaGości)
+            .Where(m => m.DruzynaDomowaId == team.Id || m.DruzynaGościId == team.Id)
+            .ToList();
+
+        // Other teams for the opponent dropdown
+        ViewData["Teams"] = _context.Druzyny.Where(t => t.Id != teamId).ToList();
+
+        // Pass an empty Mecz as the form model
+        return View(new Mecz { DruzynaDomowaId = teamId });
+    }
+
+    // POST: handle form submissions
+    [HttpPost]
+    public IActionResult AddMatches(Mecz match)
+    {
+        if (ModelState.IsValid)
+        {
+            _context.Mecze.Add(match);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(AddMatches), new { teamId = match.DruzynaDomowaId });
+        }
+        // On error, fall through to GET logic to repopulate ViewData...
+        return AddMatches(match.DruzynaDomowaId);
+    }
+
+
+
 
 }
 

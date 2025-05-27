@@ -1,0 +1,48 @@
+@model FootballApp.Models.Zawodnik
+
+@{
+    ViewData["Title"] = "Add Players to " + ViewData["TeamName"];
+    var teamId = (int)ViewData["TeamId"];
+    var players = (List<FootballApp.Models.Zawodnik>)ViewData["Players"];
+}
+
+<h2>Add Players to @ViewData["TeamName"]</h2>
+
+<form asp-action="AddPlayers" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="teamId" value="@teamId" />
+
+    <div class="mb-3">
+        <label asp-for="Imie" class="form-label">First Name</label>
+        <input asp-for="Imie" class="form-control" />
+        <span asp-validation-for="Imie" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Nazwisko" class="form-label">Last Name</label>
+        <input asp-for="Nazwisko" class="form-control" />
+        <span asp-validation-for="Nazwisko" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Pozycja" class="form-label">Position</label>
+        <input asp-for="Pozycja" class="form-control" />
+        <span asp-validation-for="Pozycja" class="text-danger"></span>
+    </div>
+
+    <button type="submit" name="submitAction" value="Add"  class="btn btn-primary">Add Player</button>
+    <button type="submit" name="submitAction" value="Done" class="btn btn-success">Done Adding Players</button>
+</form>
+
+<h3 class="mt-4">Players in @ViewData["TeamName"]</h3>
+@if (!players.Any())
+{
+    <p>No players added yet.</p>
+}
+else
+{
+    <ul>
+    @foreach (var p in players)
+    {
+        <li>@p.Imie @p.Nazwisko (@p.Pozycja)</li>
+    }
+    </ul>
+}

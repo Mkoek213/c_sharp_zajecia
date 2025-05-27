@@ -1,6 +1,6 @@
 [
-  { "Id": 1, "Imię": "Artur", "Nazwisko": "Jędrzejczyk", "Pozycja": "Obrońca", "DruzynaId": 1 },
-  { "Id": 2, "Imię": "Michał", "Nazwisko": "Piątek", "Pozycja": "Napastnik", "DruzynaId": 2 },
-  { "Id": 3, "Imię": "Jakub", "Nazwisko": "Ojrzyński", "Pozycja": "Bramkarz", "DruzynaId": 3 },
-  { "Id": 4, "Imię": "Kamil", "Nazwisko": "Grosicki", "Pozycja": "Skrzydłowy", "DruzynaId": 4 }
+  { "Id": 1, "Imie": "Artur", "Nazwisko": "Jędrzejczyk", "Pozycja": "Obrońca", "DruzynaId": 1 },
+  { "Id": 2, "Imie": "Michał", "Nazwisko": "Piątek", "Pozycja": "Napastnik", "DruzynaId": 2 },
+  { "Id": 3, "Imie": "Jakub", "Nazwisko": "Ojrzyński", "Pozycja": "Bramkarz", "DruzynaId": 3 },
+  { "Id": 4, "Imie": "Kamil", "Nazwisko": "Grosicki", "Pozycja": "Skrzydłowy", "DruzynaId": 4 }
 ]

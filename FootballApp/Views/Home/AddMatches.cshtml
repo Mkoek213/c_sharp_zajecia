@@ -1,0 +1,79 @@
+@model FootballApp.Models.Mecz
+
+@{
+    ViewData["Title"] = "Add Matches for " + ViewData["TeamName"];
+    var teamId = (int)ViewData["TeamId"];
+    var teams = (List<FootballApp.Models.Druzyna>)ViewData["Teams"];
+    var matches = (List<FootballApp.Models.Mecz>)ViewData["Matches"];
+}
+
+<h2>Add Matches for @ViewData["TeamName"]</h2>
+
+<form asp-action="AddMatches" method="post">
+    @Html.AntiForgeryToken()
+    <input type="hidden" name="DruzynaDomowaId" value="@teamId" />
+
+    <div class="mb-3">
+        <label asp-for="DruzynaGościId" class="form-label">Opponent Team</label>
+        <select asp-for="DruzynaGościId" class="form-select" required>
+            <option value="">-- Select opponent --</option>
+            @foreach (var t in teams)
+            {
+                <option value="@t.Id">@t.Nazwa (@t.Miasto)</option>
+            }
+        </select>
+        <span asp-validation-for="DruzynaGościId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Data" class="form-label">Match Date</label>
+        <input asp-for="Data" type="date" class="form-control" required />
+        <span asp-validation-for="Data" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="WynikDomowy" class="form-label">Home Team Score</label>
+        <input asp-for="WynikDomowy" type="number" min="0" class="form-control" />
+        <span asp-validation-for="WynikDomowy" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="WynikGości" class="form-label">Away Team Score</label>
+        <input asp-for="WynikGości" type="number" min="0" class="form-control" />
+        <span asp-validation-for="WynikGości" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Add Match</button>
+</form>
+
+<h3 class="mt-4">Existing Matches for @ViewData["TeamName"]</h3>
+@if (matches.Count == 0)
+{
+    <p>No matches added yet.</p>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Home Team</th>
+                <th>Away Team</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var m in matches)
+            {
+                <tr>
+                    <td>@m.Data.ToString("yyyy-MM-dd")</td>
+                    <td>@m.DruzynaDomowa?.Nazwa</td>
+                    <td>@m.DruzynaGości?.Nazwa</td>
+                    <td>@(m.WynikDomowy.HasValue && m.WynikGości.HasValue ? $"{m.WynikDomowy} - {m.WynikGości}" : "N/A")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<a asp-action="Index" class="btn btn-primary mt-3">Finish and Go to Teams List</a>

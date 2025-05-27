@@ -24,7 +24,7 @@
             <td>@match.DruzynaDomowa?.Nazwa</td>
             <td>@match.DruzynaGości?.Nazwa</td>
             <td>@match.Data.ToShortDateString()</td>
-            <td>@match.WynikDomowy - @match.WynikGości</td>
+            <td>@(match.WynikDomowy.HasValue && match.WynikGości.HasValue ? $"{match.WynikDomowy} - {match.WynikGości}" : "Upcoming")</td>
         </tr>
     }
     </tbody>

@@ -50,10 +50,10 @@ namespace FootballApp.Migrations
                     b.Property<int>("DruzynaGościId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("WynikDomowy")
+                    b.Property<int?>("WynikDomowy")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("WynikGości")
+                    b.Property<int?>("WynikGości")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
@@ -100,7 +100,7 @@ namespace FootballApp.Migrations
                     b.Property<int?>("DruzynaId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Imię")
+                    b.Property<string>("Imie")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

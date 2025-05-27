@@ -60,7 +60,7 @@ namespace FootballApp.Migrations
                 {
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Imię = table.Column<string>(type: "TEXT", nullable: false),
+                    Imie = table.Column<string>(type: "TEXT", nullable: false),
                     Nazwisko = table.Column<string>(type: "TEXT", nullable: false),
                     Pozycja = table.Column<string>(type: "TEXT", nullable: false),
                     DruzynaId = table.Column<int>(type: "INTEGER", nullable: false)
