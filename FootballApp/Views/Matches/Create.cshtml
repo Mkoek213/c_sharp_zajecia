@@ -1,0 +1,65 @@
+@model FootballApp.Models.Mecz
+
+@{
+    ViewData["Title"] = ViewData["MenuTitle"];
+}
+
+<h2>@ViewData["Title"]</h2>
+<h4>New Match</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Data" class="control-label"></label>
+                <input asp-for="Data" class="form-control" type="datetime-local" />
+                <span asp-validation-for="Data" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="DruzynaDomowaId" class="control-label">Home Team</label>
+                <select asp-for="DruzynaDomowaId" class="form-control" asp-items="ViewBag.DruzynaDomowaId">
+                    <option value="">-- Select Home Team --</option>
+                </select>
+                <span asp-validation-for="DruzynaDomowaId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="DruzynaGościId" class="control-label">Away Team</label>
+                <select asp-for="DruzynaGościId" class="form-control" asp-items="ViewBag.DruzynaGościId">
+                    <option value="">-- Select Away Team --</option>
+                </select>
+                <span asp-validation-for="DruzynaGościId" class="text-danger"></span>
+            </div>
+            
+            <h5 class="mt-4">Result (Optional)</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="WynikDomowy" class="control-label">Home Score</label>
+                        <input asp-for="WynikDomowy" class="form-control" type="number" min="0" />
+                        <span asp-validation-for="WynikDomowy" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="WynikGości" class="control-label">Away Score</label>
+                        <input asp-for="WynikGości" class="form-control" type="number" min="0" />
+                        <span asp-validation-for="WynikGości" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Create Match" class="btn btn-success" />
+                <a asp-action="Index" class="btn btn-outline-secondary ms-2">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

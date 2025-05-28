@@ -4,16 +4,21 @@
     ViewData["Title"] = "Matches";
 }
 
-<h2>Matches</h2>
+<h2>@ViewData["Title"]</h2>
 
-<table class="table">
-    <thead>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Schedule New Match</a>
+</p>
+
+<table class="table table-striped table-hover">
+    <thead class="thead-dark">
         <tr>
             <th>Id</th>
             <th>Home Team</th>
             <th>Away Team</th>
             <th>Date</th>
             <th>Score</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -23,8 +28,13 @@
             <td>@match.Id</td>
             <td>@match.DruzynaDomowa?.Nazwa</td>
             <td>@match.DruzynaGości?.Nazwa</td>
-            <td>@match.Data.ToShortDateString()</td>
+            <td>@match.Data.ToString("yyyy-MM-dd HH:mm")</td> @* More specific date format *@
             <td>@(match.WynikDomowy.HasValue && match.WynikGości.HasValue ? $"{match.WynikDomowy} - {match.WynikGości}" : "Upcoming")</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@match.Id" class="btn btn-sm btn-outline-primary">Edit</a> |
+                <a asp-action="Details" asp-route-id="@match.Id" class="btn btn-sm btn-outline-info">Details</a> |
+                <a asp-action="Delete" asp-route-id="@match.Id" class="btn btn-sm btn-outline-danger">Delete</a>
+            </td>
         </tr>
     }
     </tbody>
