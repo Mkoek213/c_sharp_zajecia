@@ -1,0 +1,73 @@
+@model FootballApp.Models.Zawodnik
+
+@{
+    ViewData["Title"] = "Edit Player";
+}
+
+<h2>@ViewData["Title"]</h2>
+<h4>Zawodnik</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6"> @* Increased col-md for more space if needed *@
+        <form asp-action="Edit" method="post">
+            @Html.AntiForgeryToken()
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            @* This hidden field is crucial for binding back the existing Statystyki.Id *@
+            @* It will be 0 if stats are being added for the first time during an edit *@
+            <input type="hidden" asp-for="Statystyki.Id" />
+            @* Statystyki.ZawodnikId is set by the controller based on the Player's Id *@
+
+            <h5>Player Details</h5>
+            <div class="form-group mb-2">
+                <label asp-for="Imie" class="control-label"></label>
+                <input asp-for="Imie" class="form-control" />
+                <span asp-validation-for="Imie" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Nazwisko" class="control-label"></label>
+                <input asp-for="Nazwisko" class="form-control" />
+                <span asp-validation-for="Nazwisko" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Pozycja" class="control-label"></label>
+                <input asp-for="Pozycja" class="form-control" />
+                <span asp-validation-for="Pozycja" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="DruzynaId" class="control-label">Team</label>
+                <select asp-for="DruzynaId" class="form-control" asp-items="ViewBag.DruzynaId">
+                     <option value="">-- Select Team (Free Agent) --</option>
+                </select>
+                <span asp-validation-for="DruzynaId" class="text-danger"></span>
+            </div>
+
+            <h5 class="mt-4">Statistics</h5>
+            <div class="form-group mb-2">
+                <label asp-for="Statystyki.Mecze" class="control-label">Matches</label>
+                <input asp-for="Statystyki.Mecze" class="form-control" type="number" />
+                <span asp-validation-for="Statystyki.Mecze" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Statystyki.Gole" class="control-label">Goals</label>
+                <input asp-for="Statystyki.Gole" class="form-control" type="number" />
+                <span asp-validation-for="Statystyki.Gole" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="Statystyki.Asysty" class="control-label">Assists</label>
+                <input asp-for="Statystyki.Asysty" class="form-control" type="number" />
+                <span asp-validation-for="Statystyki.Asysty" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

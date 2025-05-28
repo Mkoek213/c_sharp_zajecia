@@ -62,6 +62,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvTWF0Y2hlcy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/mikolaj/work/c_sharp_zajecia/FootballApp/Views/Players/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGxheWVycy9DcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/mikolaj/work/c_sharp_zajecia/FootballApp/Views/Players/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGxheWVycy9EZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/mikolaj/work/c_sharp_zajecia/FootballApp/Views/Players/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGxheWVycy9EZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/mikolaj/work/c_sharp_zajecia/FootballApp/Views/Players/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGxheWVycy9FZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/mikolaj/work/c_sharp_zajecia/FootballApp/Views/Players/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvUGxheWVycy9JbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 

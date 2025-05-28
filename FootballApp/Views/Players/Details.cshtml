@@ -1,0 +1,76 @@
+@model FootballApp.Models.Zawodnik
+
+@{
+    ViewData["Title"] = "Player Details";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>Zawodnik</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Imie)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Imie)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Nazwisko)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Nazwisko)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Pozycja)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Pozycja)
+        </dd>
+        <dt class="col-sm-3">
+            Team
+        </dt>
+        <dd class="col-sm-9">
+            @(Model.Druzyna?.Nazwa ?? "Free Agent")
+        </dd>
+        
+        @* Uncomment if you want to display stats here and included them in the Details action query *@
+        @*
+        @if (Model.Statystyki != null)
+        {
+            <dt class="col-sm-3">
+                Goals (Example Stat)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Statystyki.Gole)
+            </dd>
+            <dt class="col-sm-3">
+                Assists (Example Stat)
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Statystyki.Asysty)
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-3">
+                Statistics
+            </dt>
+            <dd class="col-sm-9">
+                No statistics available.
+            </dd>
+        }
+        *@
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">Edit</a> |
+    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+</div>

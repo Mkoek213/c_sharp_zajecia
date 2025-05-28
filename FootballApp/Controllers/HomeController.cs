@@ -127,49 +127,36 @@ public class HomeController : Controller
 
         if (submitAction == "Add")
         {
-            if (ModelState.IsValid) // <<< We need to know why this might be false
+            if (ModelState.IsValid) 
             {
                 player.DruzynaId = teamId;
-
-                // The Statystyki object is part of the player model.
-                // If Zawodnik.Statystyki is initialized (e.g., in the model's constructor or property),
-                // EF Core should handle saving it as a dependent entity.
-                // The line player.Statystyki.Zawodnik = player; is often not strictly necessary if the FKs are set up
-                // and EF Core can infer the principal, but it doesn't hurt.
-
                 _context.Zawodnicy.Add(player);
                 _context.SaveChanges();
-                _logger.LogInformation("Successfully added player {PlayerName} to team {TeamId}", player.Nazwisko, teamId); // Added success log
+                _logger.LogInformation("Successfully added player {PlayerName} to team {TeamId}", player.Nazwisko, teamId); 
 
-                // After successfully adding a player, clear the form for the next one
                 ViewData["TeamName"] = team.Nazwa;
                 ViewData["TeamId"] = team.Id;
                 ViewData["Players"] = _context.Zawodnicy
                     .Include(z => z.Statystyki)
                     .Where(p => p.DruzynaId == teamId)
                     .ToList();
-                return View(new Zawodnik { Statystyki = new StatystykiZawodnika() }); // Return a new model to clear form
+                return View(new Zawodnik { Statystyki = new StatystykiZawodnika() }); 
             }
             else
             {
-                // Log validation errors for the player model
                 _logger.LogWarning("Invalid player model when trying to add to team {TeamId}. Errors: {errors}",
                     teamId,
                     string.Join("; ", ModelState.Values
                         .SelectMany(v => v.Errors)
                         .Select(e => e.ErrorMessage)));
-                // Log submitted player data for more context (be careful with sensitive data in real logs)
                 _logger.LogDebug("Invalid Player data received: Imie='{Imie}', Nazwisko='{Nazwisko}', Pozycja='{Pozycja}', Mecze='{Mecze}', Gole='{Gole}', Asysty='{Asysty}'",
-                    player.Imie, player.Nazwisko, player.Pozycja, player.Statystyki?.Mecze, player.Statystyki?.Gole, player.Statystyki?.Asysty);
-
-                // IMPORTANT: To see validation messages on the form, return the submitted 'player' model
-                ViewData["TeamName"] = team.Nazwa;
+                    player.Imie, player.Nazwisko, player.Pozycja, player.Statystyki?.Mecze, player.Statystyki?.Gole, player.Statystyki?.Asysty);               ViewData["TeamName"] = team.Nazwa;
                 ViewData["TeamId"] = team.Id;
                 ViewData["Players"] = _context.Zawodnicy
                     .Include(z => z.Statystyki)
                     .Where(p => p.DruzynaId == teamId)
                     .ToList();
-                return View(player); // <<< Return the 'player' model itself to show errors
+                return View(player); 
             }
         }
 
@@ -178,9 +165,6 @@ public class HomeController : Controller
             return RedirectToAction(nameof(AddMatches), new { teamId });
         }
 
-        // This part is usually hit if the action was not "Add" or "Done",
-        // or if you fall through after "Add" without returning.
-        // For clarity, the "Add" action now explicitly returns a view.
         ViewData["TeamName"] = team.Nazwa;
         ViewData["TeamId"] = team.Id;
         ViewData["Players"] = _context.Zawodnicy

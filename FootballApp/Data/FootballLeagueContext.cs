@@ -12,6 +12,8 @@ public class FootballLeagueContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        base.OnModelCreating(modelBuilder); // Good practice to call base method
+
         // Matches involving the team get deleted
         modelBuilder.Entity<Mecz>()
             .HasOne(m => m.DruzynaDomowa)
@@ -31,6 +33,11 @@ public class FootballLeagueContext : DbContext
             .WithMany(d => d.Zawodnicy)
             .HasForeignKey(z => z.DruzynaId)
             .OnDelete(DeleteBehavior.SetNull); // Important
-    }
 
+        modelBuilder.Entity<StatystykiZawodnika>()
+            .HasOne(s => s.Zawodnik)
+            .WithOne(z => z.Statystyki) 
+            .HasForeignKey<StatystykiZawodnika>(s => s.ZawodnikId) 
+            .OnDelete(DeleteBehavior.Cascade); 
+    }
 }
