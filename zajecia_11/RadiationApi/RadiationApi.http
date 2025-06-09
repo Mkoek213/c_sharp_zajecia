@@ -1,0 +1,6 @@
+@RadiationApi_HostAddress = http://localhost:5257
+
+GET {{RadiationApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
